@@ -135,25 +135,24 @@ export default function PayrollManagementView() {
   const totals = calculateTotals();
 
   return (
-    <div className="min-h-screen bg-secondary-50 p-6">
-      <div className="max-w-7xl mx-auto space-y-6">
-        {/* Page Header */}
-        <div className="bg-white rounded-xl shadow-soft border border-secondary-200/50 p-6">
-          <div className="flex justify-between items-start">
-            <div>
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-12 h-12 bg-gradient-to-br from-success-500 to-success-700 rounded-xl flex items-center justify-center shadow-lg">
-                  <DollarSign className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <h1 className="text-3xl font-display font-bold text-secondary-900">
-                    Payroll Management
-                  </h1>
-                  <p className="text-secondary-600">
-                    Process and manage employee salaries and compensation packages.
-                  </p>
-                </div>
+    <div className="p-6 space-y-6">
+      {/* Page Header */}
+      <div className="bg-white dark:bg-secondary-800 rounded-xl shadow-soft border border-secondary-200/50 dark:border-secondary-700/50 p-6">
+        <div className="flex justify-between items-start">
+          <div>
+            <div className="flex items-center gap-3 mb-2">
+              <div className="w-12 h-12 bg-gradient-to-br from-success-500 to-success-700 rounded-xl flex items-center justify-center shadow-lg">
+                <DollarSign className="w-6 h-6 text-white" />
               </div>
+              <div>
+                <h1 className="text-3xl font-display font-bold text-secondary-900 dark:text-secondary-100">
+                  Payroll Management
+                </h1>
+                <p className="text-secondary-600 dark:text-secondary-400">
+                  Process and manage employee salaries and compensation packages.
+                </p>
+              </div>
+            </div>
 
               <div className="flex items-center gap-6 mt-6">
                 <div className="flex items-center gap-2">
@@ -532,7 +531,7 @@ export default function PayrollManagementView() {
           </div>
         </div>
       </div>
-    </div>
+
   );
 }
 

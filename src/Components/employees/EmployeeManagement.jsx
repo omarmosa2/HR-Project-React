@@ -154,25 +154,24 @@ const EmployeeManagement = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-secondary-50 p-6">
-      <div className="max-w-7xl mx-auto space-y-6">
-        {/* Page Header */}
-        <div className="bg-white rounded-xl shadow-soft border border-secondary-200/50 p-6">
-          <div className="flex justify-between items-start">
-            <div>
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-700 rounded-xl flex items-center justify-center shadow-lg">
-                  <Users className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <h1 className="text-3xl font-display font-bold text-secondary-900">
-                    Employee Management
-                  </h1>
-                  <p className="text-secondary-600">
-                    Manage your team members, track their information, and maintain employee records.
-                  </p>
-                </div>
+    <div className="p-6 space-y-6">
+      {/* Page Header */}
+      <div className="bg-white dark:bg-secondary-800 rounded-xl shadow-soft border border-secondary-200/50 dark:border-secondary-700/50 p-6">
+        <div className="flex justify-between items-start">
+          <div>
+            <div className="flex items-center gap-3 mb-2">
+              <div className="w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-700 rounded-xl flex items-center justify-center shadow-lg">
+                <Users className="w-6 h-6 text-white" />
               </div>
+              <div>
+                <h1 className="text-3xl font-display font-bold text-secondary-900 dark:text-secondary-100">
+                  Employee Management
+                </h1>
+                <p className="text-secondary-600 dark:text-secondary-400">
+                  Manage your team members, track their information, and maintain employee records.
+                </p>
+              </div>
+            </div>
 
               <div className="flex items-center gap-6 mt-6">
                 <div className="flex items-center gap-2">
@@ -211,11 +210,11 @@ const EmployeeManagement = () => {
         </div>
 
         {/* Search and Filters */}
-        <div className="bg-white rounded-xl shadow-soft border border-secondary-200/50 p-6">
+        <div className="bg-white dark:bg-secondary-800 rounded-xl shadow-soft border border-secondary-200/50 dark:border-secondary-700/50 p-6">
           <div className="flex flex-col lg:flex-row gap-4">
             <div className="flex-1">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-secondary-400" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-secondary-400 dark:text-secondary-500" />
                 <input
                   type="text"
                   placeholder="Search employees by name, email, or position..."
@@ -226,9 +225,9 @@ const EmployeeManagement = () => {
               </div>
             </div>
 
-            <div className="flex gap-3">
+            <div className="flex flex-col sm:flex-row gap-3">
               <div className="relative">
-                <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-secondary-400" />
+                <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-secondary-400 dark:text-secondary-500" />
                 <select
                   value={departmentFilter}
                   onChange={(e) => setDepartmentFilter(e.target.value)}
@@ -242,7 +241,7 @@ const EmployeeManagement = () => {
               </div>
 
               <div className="relative">
-                <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-secondary-400" />
+                <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-secondary-400 dark:text-secondary-500" />
                 <select
                   value={positionFilter}
                   onChange={(e) => setPositionFilter(e.target.value)}
@@ -258,16 +257,17 @@ const EmployeeManagement = () => {
               {(searchTerm || departmentFilter || positionFilter) && (
                 <button
                   onClick={clearFilters}
-                  className="btn-secondary whitespace-nowrap"
+                  className="btn-secondary whitespace-nowrap flex items-center gap-2"
                 >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
                   Clear Filters
                 </button>
               )}
             </div>
           </div>
         </div>
-
-
 
         {/* Forms */}
         {isAdding && (
@@ -490,7 +490,7 @@ const EmployeeManagement = () => {
           </div>
         </div>
       </div>
-    </div>
+
   );
 };
 

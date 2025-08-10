@@ -137,10 +137,10 @@ const DepartmentManagement = () => {
               <Building className="w-5 h-5 text-primary-600" />
             </div>
             <div>
-              <h3 className="text-lg font-semibold text-secondary-900">
+              <h3 className="text-lg font-semibold text-secondary-900 dark:text-secondary-100">
                 {initialData.id ? 'Edit Department' : 'Add New Department'}
               </h3>
-              <p className="text-sm text-secondary-600 mt-1">
+              <p className="text-sm text-secondary-600 dark:text-secondary-400 mt-1">
                 {initialData.id ? 'Update department information' : 'Create a new department for your organization'}
               </p>
             </div>
@@ -150,7 +150,7 @@ const DepartmentManagement = () => {
               setIsAdding(false);
               setSelectedDepartment(null);
             }}
-            className="text-secondary-400 hover:text-secondary-600 transition-colors"
+            className="text-secondary-400 dark:text-secondary-500 hover:text-secondary-600 dark:hover:text-secondary-300 transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
@@ -160,11 +160,11 @@ const DepartmentManagement = () => {
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-secondary-700">
+                <label className="block text-sm font-medium text-secondary-700 dark:text-secondary-300">
                   Department Name *
                 </label>
                 <div className="relative">
-                  <Building className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-secondary-400" />
+                  <Building className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-secondary-400 dark:text-secondary-500" />
                   <input
                     type="text"
                     name="name"
@@ -178,11 +178,11 @@ const DepartmentManagement = () => {
               </div>
 
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-secondary-700">
+                <label className="block text-sm font-medium text-secondary-700 dark:text-secondary-300">
                   Department Manager
                 </label>
                 <div className="relative">
-                  <Users className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-secondary-400" />
+                  <Users className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-secondary-400 dark:text-secondary-500" />
                   <input
                     type="text"
                     name="manager"
@@ -195,11 +195,11 @@ const DepartmentManagement = () => {
               </div>
 
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-secondary-700">
+                <label className="block text-sm font-medium text-secondary-700 dark:text-secondary-300">
                   Annual Budget
                 </label>
                 <div className="relative">
-                  <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-secondary-500">$</span>
+                  <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-secondary-500 dark:text-secondary-400">$</span>
                   <input
                     type="number"
                     name="budget"
@@ -214,7 +214,7 @@ const DepartmentManagement = () => {
               </div>
 
               <div className="space-y-2 md:col-span-1">
-                <label className="block text-sm font-medium text-secondary-700">
+                <label className="block text-sm font-medium text-secondary-700 dark:text-secondary-300">
                   Description
                 </label>
                 <textarea
@@ -228,7 +228,7 @@ const DepartmentManagement = () => {
               </div>
             </div>
 
-            <div className="flex items-center justify-end gap-3 pt-6 border-t border-secondary-200">
+            <div className="flex items-center justify-end gap-3 pt-6 border-t border-secondary-200 dark:border-secondary-700">
               <button
                 type="button"
                 onClick={() => {
@@ -276,44 +276,45 @@ const DepartmentManagement = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-secondary-50 p-6">
-      <div className="max-w-7xl mx-auto space-y-6">
-        {/* Page Header */}
-        <div className="bg-white rounded-xl shadow-soft border border-secondary-200/50 p-6">
-          <div className="flex justify-between items-start">
-            <div>
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-700 rounded-xl flex items-center justify-center shadow-lg">
-                  <Building className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <h1 className="text-3xl font-display font-bold text-secondary-900">
-                    Department Management
-                  </h1>
-                  <p className="text-secondary-600">
-                    Organize your company structure and manage departmental information.
-                  </p>
-                </div>
+    <div className="p-6 space-y-6">
+      {/* Page Header */}
+      <div className="bg-white dark:bg-secondary-800 rounded-xl shadow-soft border border-secondary-200/50 dark:border-secondary-700/50 p-6">
+        <div className="flex justify-between items-start">
+          <div>
+            <div className="flex items-center gap-3 mb-2">
+              <div className="w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-700 rounded-xl flex items-center justify-center shadow-lg">
+                <Building className="w-6 h-6 text-white" />
               </div>
-
-              <div className="flex items-center gap-6 mt-6">
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 bg-success-500 rounded-full"></div>
-                  <span className="text-sm text-secondary-600 font-medium">{departments.length} Total Departments</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 bg-primary-500 rounded-full"></div>
-                  <span className="text-sm text-secondary-600 font-medium">{filteredDepartments.length} Filtered Results</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 bg-warning-500 rounded-full"></div>
-                  <span className="text-sm text-secondary-600 font-medium">
-                    {departments.reduce((total, dept) => total + (dept.employees?.length || 0), 0)} Total Employees
-                  </span>
-                </div>
+              <div>
+                <h1 className="text-3xl font-display font-bold text-secondary-900 dark:text-secondary-100">
+                  Department Management
+                </h1>
+                <p className="text-secondary-600 dark:text-secondary-400">
+                  Organize your company structure and manage departmental information.
+                </p>
               </div>
             </div>
-            <div className="flex gap-3">
+
+            {/* Stats */}
+            <div className="flex items-center gap-6 mt-6">
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 bg-success-500 rounded-full"></div>
+                <span className="text-sm text-secondary-600 dark:text-secondary-400 font-medium">{departments.length} Total Departments</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 bg-primary-500 rounded-full"></div>
+                <span className="text-sm text-secondary-600 dark:text-secondary-400 font-medium">{filteredDepartments.length} Filtered Results</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 bg-warning-500 rounded-full"></div>
+                <span className="text-sm text-secondary-600 dark:text-secondary-400 font-medium">
+                  {departments.reduce((total, dept) => total + (dept.employees?.length || 0), 0)} Total Employees
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex gap-3">
               <ExcelExportButton
                 data={filteredDepartments.map(dept => ({
                   ...dept,
@@ -339,60 +340,60 @@ const DepartmentManagement = () => {
           </div>
         </div>
 
-        {/* Search Bar */}
-        <div className="bg-white rounded-xl shadow-soft border border-secondary-200/50 p-6">
-          <div className="flex flex-col lg:flex-row gap-4">
-            <div className="flex-1">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-secondary-400" />
-                <input
-                  type="text"
-                  placeholder="Search departments by name or description..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="input pl-10 w-full"
-                />
-              </div>
+      {/* Search Bar */}
+      <div className="bg-white dark:bg-secondary-800 rounded-xl shadow-soft border border-secondary-200/50 dark:border-secondary-700/50 p-6">
+        <div className="flex flex-col lg:flex-row gap-4">
+          <div className="flex-1">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-secondary-400 dark:text-secondary-500" />
+              <input
+                type="text"
+                placeholder="Search departments by name or description..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="input pl-10 w-full"
+              />
             </div>
+          </div>
 
-            {searchTerm && (
-              <button
-                onClick={() => setSearchTerm("")}
-                className="btn-secondary whitespace-nowrap"
-              >
-                Clear Search
-              </button>
-            )}
+          {searchTerm && (
+            <button
+              onClick={() => setSearchTerm("")}
+              className="btn-secondary whitespace-nowrap"
+            >
+              Clear Search
+            </button>
+          )}
+        </div>
+      </div>
+
+      {/* Forms */}
+      {isAdding && (
+        <DepartmentForm onSubmit={handleAdd} />
+      )}
+
+      {selectedDepartment && (
+        <DepartmentForm
+          onSubmit={handleUpdate}
+          initialData={selectedDepartment}
+        />
+      )}
+
+      {/* Departments Table */}
+      <div className="card">
+        <div className="card-header">
+          <div className="flex justify-between items-center">
+            <div>
+              <h3 className="text-lg font-semibold text-secondary-900 dark:text-secondary-100 flex items-center gap-2">
+                <Building className="w-5 h-5 text-primary-600" />
+                Department Directory
+              </h3>
+              <p className="text-sm text-secondary-600 dark:text-secondary-400 mt-1">
+                {loading ? 'Loading departments...' : `Showing ${filteredDepartments.length} of ${departments.length} departments`}
+              </p>
+            </div>
           </div>
         </div>
-
-        {/* Forms */}
-        {isAdding && (
-          <DepartmentForm onSubmit={handleAdd} />
-        )}
-
-        {selectedDepartment && (
-          <DepartmentForm
-            onSubmit={handleUpdate}
-            initialData={selectedDepartment}
-          />
-        )}
-
-        {/* Departments Table */}
-        <div className="card">
-          <div className="card-header">
-            <div className="flex justify-between items-center">
-              <div>
-                <h3 className="text-lg font-semibold text-secondary-900 flex items-center gap-2">
-                  <Building className="w-5 h-5 text-primary-600" />
-                  Department Directory
-                </h3>
-                <p className="text-sm text-secondary-600 mt-1">
-                  {loading ? 'Loading departments...' : `Showing ${filteredDepartments.length} of ${departments.length} departments`}
-                </p>
-              </div>
-            </div>
-          </div>
 
           <div className="overflow-x-auto">
             <table className="table">
@@ -428,10 +429,10 @@ const DepartmentManagement = () => {
                           )}
                         </div>
                         <div className="text-center">
-                          <h3 className="text-lg font-medium text-secondary-900">
+                          <h3 className="text-lg font-medium text-secondary-900 dark:text-secondary-100">
                             {searchTerm ? 'No departments match your search' : 'No departments found'}
                           </h3>
-                          <p className="text-secondary-600 mt-1">
+                          <p className="text-secondary-600 dark:text-secondary-400 mt-1">
                             {searchTerm ? 'Try adjusting your search criteria' : 'Get started by creating your first department'}
                           </p>
                         </div>
@@ -456,32 +457,32 @@ const DepartmentManagement = () => {
                             <Building className="w-6 h-6 text-white" />
                           </div>
                           <div className="min-w-0 flex-1">
-                            <div className="font-semibold text-secondary-900 truncate">{department.name}</div>
-                            <div className="text-sm text-secondary-500">Department ID: {department.id}</div>
+                            <div className="font-semibold text-secondary-900 dark:text-secondary-100 truncate">{department.name}</div>
+                            <div className="text-sm text-secondary-500 dark:text-secondary-400">Department ID: {department.id}</div>
                           </div>
                         </div>
                       </td>
                       <td>
-                        <div className="font-medium text-secondary-900">
+                        <div className="font-medium text-secondary-900 dark:text-secondary-100">
                           {department.manager || 'Not assigned'}
                         </div>
                       </td>
                       <td>
-                        <div className="font-bold text-success-600">
+                        <div className="font-bold text-success-600 dark:text-success-400">
                           {department.budget ? `$${department.budget.toLocaleString()}` : 'Not set'}
                         </div>
                         {department.budget && (
-                          <div className="text-xs text-secondary-500">Annual budget</div>
+                          <div className="text-xs text-secondary-500 dark:text-secondary-400">Annual budget</div>
                         )}
                       </td>
                       <td>
-                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-100 text-primary-800">
+                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-100 dark:bg-primary-900/30 text-primary-800 dark:text-primary-300">
                           <Users className="w-3 h-3 mr-1" />
                           {department.employees?.length || 0} employees
                         </span>
                       </td>
                       <td>
-                        <div className="text-secondary-600 text-sm max-w-xs truncate">
+                        <div className="text-secondary-600 dark:text-secondary-400 text-sm max-w-xs truncate">
                           {department.description || 'No description'}
                         </div>
                       </td>
@@ -489,14 +490,14 @@ const DepartmentManagement = () => {
                         <div className="flex items-center justify-center gap-1">
                           <button
                             onClick={() => setSelectedDepartment(department)}
-                            className="p-2 text-primary-600 hover:bg-primary-50 rounded-lg transition-colors duration-200"
+                            className="p-2 text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 rounded-lg transition-colors duration-200"
                             title="Edit Department"
                           >
                             <Edit className="w-4 h-4" />
                           </button>
                           <button
                             onClick={() => handleDelete(department.id)}
-                            className="p-2 text-danger-600 hover:bg-danger-50 rounded-lg transition-colors duration-200"
+                            className="p-2 text-danger-600 dark:text-danger-400 hover:bg-danger-50 dark:hover:bg-danger-900/20 rounded-lg transition-colors duration-200"
                             title="Delete Department"
                           >
                             <Trash2 className="w-4 h-4" />
@@ -511,7 +512,6 @@ const DepartmentManagement = () => {
           </div>
         </div>
       </div>
-    </div>
   );
 };
 

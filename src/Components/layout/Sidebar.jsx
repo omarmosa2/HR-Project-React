@@ -22,9 +22,7 @@ import {
   Menu,
   X,
   Shield,
-  HelpCircle,
-  Moon,
-  Sun
+  HelpCircle
 } from "lucide-react";
 
 const menuSections = [
@@ -142,7 +140,6 @@ const authItems = [
 
 const Sidebar = ({ isCollapsed = false, onToggle }) => {
   const [expandedSections, setExpandedSections] = useState({});
-  const [isDarkMode, setIsDarkMode] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const location = useLocation();
 
@@ -162,9 +159,9 @@ const Sidebar = ({ isCollapsed = false, onToggle }) => {
   })).filter(section => section.items.length > 0);
 
   return (
-    <div className={`${isCollapsed ? 'w-20' : 'w-80'} bg-white border-r border-secondary-200 flex flex-col h-screen shadow-soft sidebar-transition relative`}>
+    <div className={`${isCollapsed ? 'w-20' : 'w-80'} bg-white dark:bg-secondary-800 border-r border-secondary-200 dark:border-secondary-700 flex flex-col h-screen shadow-soft sidebar-transition relative`}>
       {/* Header Section */}
-      <div className="p-6 border-b border-secondary-200">
+      <div className="p-6 border-b border-secondary-200 dark:border-secondary-700">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-700 rounded-xl flex items-center justify-center shadow-lg">
@@ -172,48 +169,24 @@ const Sidebar = ({ isCollapsed = false, onToggle }) => {
             </div>
             {!isCollapsed && (
               <div>
-                <h1 className="text-xl font-display font-bold text-secondary-900">HR System</h1>
-                <p className="text-xs text-secondary-500">Management Portal</p>
+                <h1 className="text-xl font-display font-bold text-secondary-900 dark:text-secondary-100">HR System</h1>
+                <p className="text-xs text-secondary-500 dark:text-secondary-400">Management Portal</p>
               </div>
             )}
           </div>
-          {!isCollapsed && (
-            <div className="flex items-center gap-2">
-              <button
-                onClick={() => setIsDarkMode(!isDarkMode)}
-                className="p-2 rounded-lg hover:bg-secondary-100 transition-colors duration-200"
-                title="Toggle theme"
-              >
-                {isDarkMode ? (
-                  <Sun className="w-4 h-4 text-secondary-600" />
-                ) : (
-                  <Moon className="w-4 h-4 text-secondary-600" />
-                )}
-              </button>
-              <button
-                className="p-2 rounded-lg hover:bg-secondary-100 transition-colors duration-200 relative"
-                title="Notifications"
-              >
-                <Bell className="w-4 h-4 text-secondary-600" />
-                <span className="absolute -top-1 -right-1 w-3 h-3 bg-danger-500 rounded-full text-xs flex items-center justify-center">
-                  <span className="w-1.5 h-1.5 bg-white rounded-full"></span>
-                </span>
-              </button>
-            </div>
-          )}
         </div>
 
         {/* Search Bar */}
         {!isCollapsed && (
           <div className="mt-4">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-secondary-400" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-secondary-400 dark:text-secondary-500" />
               <input
                 type="text"
                 placeholder="Search menu..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 text-sm bg-secondary-50 border border-secondary-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200"
+                className="w-full pl-10 pr-4 py-2 text-sm bg-secondary-50 dark:bg-secondary-700 border border-secondary-200 dark:border-secondary-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400 focus:border-transparent transition-all duration-200 text-secondary-900 dark:text-secondary-100 placeholder-secondary-500 dark:placeholder-secondary-400"
               />
             </div>
           </div>
@@ -225,21 +198,21 @@ const Sidebar = ({ isCollapsed = false, onToggle }) => {
         {filteredSections.map((section, sectionIndex) => (
           <div key={sectionIndex} className="space-y-1">
             {!isCollapsed && (
-              <div className="flex items-center justify-between px-3 py-2">
-                <h3 className="text-xs font-semibold text-secondary-500 uppercase tracking-wider">
+              <button
+                onClick={() => toggleSection(section.title)}
+                className="w-full flex items-center justify-between px-3 py-2 rounded-lg hover:bg-secondary-100 dark:hover:bg-secondary-700 transition-colors duration-200 group"
+              >
+                <h3 className="text-xs font-semibold text-secondary-500 dark:text-secondary-400 uppercase tracking-wider group-hover:text-secondary-700 dark:group-hover:text-secondary-200 transition-colors duration-200">
                   {section.title}
                 </h3>
-                <button
-                  onClick={() => toggleSection(section.title)}
-                  className="p-1 rounded hover:bg-secondary-100 transition-colors duration-200"
-                >
+                <div className="p-1">
                   {expandedSections[section.title] ? (
-                    <ChevronDown className="w-3 h-3 text-secondary-400" />
+                    <ChevronDown className="w-3 h-3 text-secondary-400 dark:text-secondary-500 group-hover:text-secondary-600 dark:group-hover:text-secondary-300 transition-colors duration-200" />
                   ) : (
-                    <ChevronRight className="w-3 h-3 text-secondary-400" />
+                    <ChevronRight className="w-3 h-3 text-secondary-400 dark:text-secondary-500 group-hover:text-secondary-600 dark:group-hover:text-secondary-300 transition-colors duration-200" />
                   )}
-                </button>
-              </div>
+                </div>
+              </button>
             )}
 
             <div className={`space-y-1 ${!isCollapsed && !expandedSections[section.title] && section.title !== "Main" ? 'hidden' : ''}`}>
@@ -253,13 +226,13 @@ const Sidebar = ({ isCollapsed = false, onToggle }) => {
                     to={item.path}
                     className={`group flex items-center gap-3 px-3 py-3 rounded-xl text-sm font-medium transition-all duration-200 relative nav-item ${
                       isActive
-                        ? "bg-gradient-to-r from-primary-50 to-primary-100 text-primary-700 shadow-sm border-l-4 border-primary-600 nav-item-active"
-                        : "text-secondary-600 hover:bg-secondary-50 hover:text-secondary-900"
+                        ? "bg-gradient-to-r from-primary-50 to-primary-100 dark:from-primary-900/20 dark:to-primary-800/20 text-primary-700 dark:text-primary-300 shadow-sm border-l-4 border-primary-600 dark:border-primary-400 nav-item-active"
+                        : "text-secondary-600 dark:text-secondary-300 hover:bg-secondary-50 dark:hover:bg-secondary-700 hover:text-secondary-900 dark:hover:text-secondary-100"
                     }`}
                     title={isCollapsed ? item.label : item.description}
                   >
                     <div className={`transition-colors duration-200 ${
-                      isActive ? "text-primary-600" : "text-secondary-400 group-hover:text-secondary-600"
+                      isActive ? "text-primary-600 dark:text-primary-400" : "text-secondary-400 dark:text-secondary-500 group-hover:text-secondary-600 dark:group-hover:text-secondary-300"
                     }`}>
                       <IconComponent className="w-5 h-5" />
                     </div>
@@ -268,14 +241,14 @@ const Sidebar = ({ isCollapsed = false, onToggle }) => {
                       <>
                         <div className="flex-1">
                           <div className="font-medium">{item.label}</div>
-                          <div className="text-xs text-secondary-500 mt-0.5">{item.description}</div>
+                          <div className="text-xs text-secondary-500 dark:text-secondary-400 mt-0.5">{item.description}</div>
                         </div>
 
                         {item.badge && (
                           <span className={`px-2 py-1 text-xs font-medium rounded-full ${
                             isActive
-                              ? "bg-primary-200 text-primary-800"
-                              : "bg-secondary-200 text-secondary-700"
+                              ? "bg-primary-200 dark:bg-primary-800/30 text-primary-800 dark:text-primary-300"
+                              : "bg-secondary-200 dark:bg-secondary-700 text-secondary-700 dark:text-secondary-300"
                           }`}>
                             {item.badge}
                           </span>
@@ -304,48 +277,27 @@ const Sidebar = ({ isCollapsed = false, onToggle }) => {
       </nav>
 
       {/* Footer Section */}
-      <div className="p-4 border-t border-secondary-200 space-y-3">
-        {/* Quick Actions */}
-        {!isCollapsed && (
-          <div className="space-y-2">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold text-secondary-500 uppercase tracking-wider">Quick Actions</span>
-            </div>
-            <div className="quick-actions">
-              <button
-                className="quick-action-btn bg-secondary-50 hover:bg-secondary-100 transition-all duration-200"
-                title="Help & Support"
-              >
-                <HelpCircle className="w-4 h-4 text-secondary-600" />
-              </button>
-              <button
-                className="quick-action-btn bg-secondary-50 hover:bg-secondary-100 transition-all duration-200"
-                title="Security Settings"
-              >
-                <Shield className="w-4 h-4 text-secondary-600" />
-              </button>
-            </div>
-          </div>
-        )}
+      <div className="p-4 border-t border-secondary-200 dark:border-secondary-700 space-y-3">
+
 
         {/* User Profile */}
         <div className={`${isCollapsed ? 'flex justify-center' : ''}`}>
-          <div className={`flex items-center gap-3 p-3 rounded-xl bg-gradient-to-r from-secondary-50 to-secondary-100 hover:from-secondary-100 hover:to-secondary-150 transition-all duration-200 cursor-pointer group user-profile relative ${isCollapsed ? 'w-12 h-12 justify-center' : 'w-full'}`}>
+          <div className={`flex items-center gap-3 p-3 rounded-xl bg-gradient-to-r from-secondary-50 to-secondary-100 dark:from-secondary-700 dark:to-secondary-600 hover:from-secondary-100 hover:to-secondary-150 dark:hover:from-secondary-600 dark:hover:to-secondary-500 transition-all duration-200 cursor-pointer group user-profile relative ${isCollapsed ? 'w-12 h-12 justify-center' : 'w-full'}`}>
             <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-700 rounded-full flex items-center justify-center shadow-lg">
               <UserCircle className="w-6 h-6 text-white" />
             </div>
             {!isCollapsed && (
               <>
                 <div className="flex-1">
-                  <div className="font-semibold text-secondary-900 text-sm">John Doe</div>
-                  <div className="text-xs text-secondary-500 flex items-center gap-1">
+                  <div className="font-semibold text-secondary-900 dark:text-secondary-100 text-sm">John Doe</div>
+                  <div className="text-xs text-secondary-500 dark:text-secondary-400 flex items-center gap-1">
                     <Shield className="w-3 h-3" />
                     Administrator
                   </div>
                 </div>
                 <div className="flex items-center gap-1">
                   <div className="w-2 h-2 bg-success-500 rounded-full"></div>
-                  <LogOut className="w-4 h-4 text-secondary-400 group-hover:text-secondary-600 transition-colors duration-200" />
+                  <LogOut className="w-4 h-4 text-secondary-400 dark:text-secondary-500 group-hover:text-secondary-600 dark:group-hover:text-secondary-300 transition-colors duration-200" />
                 </div>
               </>
             )}
@@ -362,7 +314,7 @@ const Sidebar = ({ isCollapsed = false, onToggle }) => {
         {/* Auth Links */}
         {!isCollapsed && (
           <div className="space-y-1">
-            <div className="text-xs font-semibold text-secondary-500 uppercase tracking-wider px-3 py-1">
+            <div className="text-xs font-semibold text-secondary-500 dark:text-secondary-400 uppercase tracking-wider px-3 py-1">
               Account
             </div>
             {authItems.map((item, i) => {
@@ -375,13 +327,13 @@ const Sidebar = ({ isCollapsed = false, onToggle }) => {
                   to={item.path}
                   className={`group flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                     isActive
-                      ? "bg-primary-50 text-primary-700"
-                      : "text-secondary-600 hover:bg-secondary-50 hover:text-secondary-900"
+                      ? "bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-300"
+                      : "text-secondary-600 dark:text-secondary-300 hover:bg-secondary-50 dark:hover:bg-secondary-700 hover:text-secondary-900 dark:hover:text-secondary-100"
                   }`}
                   title={item.description}
                 >
                   <div className={`transition-colors duration-200 ${
-                    isActive ? "text-primary-600" : "text-secondary-400 group-hover:text-secondary-600"
+                    isActive ? "text-primary-600 dark:text-primary-400" : "text-secondary-400 dark:text-secondary-500 group-hover:text-secondary-600 dark:group-hover:text-secondary-300"
                   }`}>
                     <IconComponent className="w-4 h-4" />
                   </div>
@@ -394,16 +346,16 @@ const Sidebar = ({ isCollapsed = false, onToggle }) => {
 
         {/* Collapse Toggle */}
         {onToggle && (
-          <div className="pt-2 border-t border-secondary-200">
+          <div className="pt-2 border-t border-secondary-200 dark:border-secondary-700">
             <button
               onClick={onToggle}
-              className="w-full flex items-center justify-center p-2 rounded-lg hover:bg-secondary-100 transition-colors duration-200"
+              className="w-full flex items-center justify-center p-2 rounded-lg hover:bg-secondary-100 dark:hover:bg-secondary-700 transition-colors duration-200"
               title={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
             >
               {isCollapsed ? (
-                <ChevronRight className="w-4 h-4 text-secondary-600" />
+                <ChevronRight className="w-4 h-4 text-secondary-600 dark:text-secondary-400" />
               ) : (
-                <Menu className="w-4 h-4 text-secondary-600" />
+                <Menu className="w-4 h-4 text-secondary-600 dark:text-secondary-400" />
               )}
             </button>
           </div>

@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { AuthProvider, AuthContext } from './contexts/AuthContext.jsx';
+import { ThemeProvider } from './contexts/ThemeContext.jsx';
 import Sidebar from './Components/layout/Sidebar';
 import Header from './Components/layout/Header';
 import Dashboard from './Components/dashboard/dashboard';
@@ -27,11 +28,11 @@ const AppContent = () => {
   const hideLayout = location.pathname === "/Login" || location.pathname === "/SignUp";
 
   return (
-    <div className="h-screen flex flex-col">
+    <div className="h-screen flex flex-col bg-white dark:bg-secondary-900 transition-colors duration-200">
       {!hideLayout && <Header />}
       <div className={`flex ${!hideLayout ? 'flex-1' : ''} overflow-hidden`}>
         {!hideLayout && <Sidebar />}
-        <div className="flex-1 overflow-auto p-4">
+        <div className="flex-1 overflow-auto p-4 bg-secondary-50 dark:bg-secondary-900">
           <Routes>
             {/* المسارات العامة */}
             <Route path="/SignUp" element={<SignUp />} />
@@ -57,9 +58,11 @@ const AppContent = () => {
 
 const App = () => (
   <Router>
-    <AuthProvider>
-      <AppContent />
-    </AuthProvider>
+    <ThemeProvider>
+      <AuthProvider>
+        <AppContent />
+      </AuthProvider>
+    </ThemeProvider>
   </Router>
 );
 

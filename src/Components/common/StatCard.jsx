@@ -14,24 +14,24 @@ const StatCard = ({
 
   const colorClasses = {
     primary: {
-      bg: "bg-primary-100",
-      text: "text-primary-600",
-      icon: "text-primary-600"
+      bg: "bg-primary-100 dark:bg-primary-900/30",
+      text: "text-primary-600 dark:text-primary-400",
+      icon: "text-primary-600 dark:text-primary-400"
     },
     success: {
-      bg: "bg-success-100", 
-      text: "text-success-600",
-      icon: "text-success-600"
+      bg: "bg-success-100 dark:bg-success-900/30",
+      text: "text-success-600 dark:text-success-400",
+      icon: "text-success-600 dark:text-success-400"
     },
     warning: {
-      bg: "bg-warning-100",
-      text: "text-warning-600", 
-      icon: "text-warning-600"
+      bg: "bg-warning-100 dark:bg-warning-900/30",
+      text: "text-warning-600 dark:text-warning-400",
+      icon: "text-warning-600 dark:text-warning-400"
     },
     danger: {
-      bg: "bg-danger-100",
-      text: "text-danger-600",
-      icon: "text-danger-600"
+      bg: "bg-danger-100 dark:bg-danger-900/30",
+      text: "text-danger-600 dark:text-danger-400",
+      icon: "text-danger-600 dark:text-danger-400"
     }
   };
 
@@ -73,14 +73,14 @@ const StatCard = ({
       <div className="card-body">
         <div className="flex items-center justify-between">
           <div className="flex-1">
-            <p className="text-sm font-medium text-secondary-600 mb-1">{title}</p>
+            <p className="text-sm font-medium text-secondary-600 dark:text-secondary-400 mb-1">{title}</p>
             <div className="flex items-baseline gap-2">
               <p className={`text-3xl font-bold ${colorClasses[color].text}`}>
                 {typeof animatedValue === 'number' ? animatedValue.toLocaleString() : animatedValue}
               </p>
               {trend && (
                 <span className={`text-sm font-medium ${
-                  trend > 0 ? 'text-success-600' : trend < 0 ? 'text-danger-600' : 'text-secondary-500'
+                  trend > 0 ? 'text-success-600 dark:text-success-400' : trend < 0 ? 'text-danger-600 dark:text-danger-400' : 'text-secondary-500 dark:text-secondary-400'
                 }`}>
                   {trend > 0 ? '+' : ''}{trend}%
                 </span>
@@ -97,17 +97,17 @@ const StatCard = ({
         </div>
         
         {trend !== null && (
-          <div className="mt-3 pt-3 border-t border-secondary-100">
+          <div className="mt-3 pt-3 border-t border-secondary-100 dark:border-secondary-700">
             <div className="flex items-center gap-1">
-              <svg 
-                className={`w-4 h-4 ${trend >= 0 ? 'text-success-500 rotate-0' : 'text-danger-500 rotate-180'}`} 
-                fill="none" 
-                stroke="currentColor" 
+              <svg
+                className={`w-4 h-4 ${trend >= 0 ? 'text-success-500 dark:text-success-400 rotate-0' : 'text-danger-500 dark:text-danger-400 rotate-180'}`}
+                fill="none"
+                stroke="currentColor"
                 viewBox="0 0 24 24"
               >
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 17l9.2-9.2M17 17V7H7" />
               </svg>
-              <span className="text-xs text-secondary-600">
+              <span className="text-xs text-secondary-600 dark:text-secondary-400">
                 {trend >= 0 ? 'Increase' : 'Decrease'} from last month
               </span>
             </div>

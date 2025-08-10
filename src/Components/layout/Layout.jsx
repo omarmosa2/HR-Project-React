@@ -10,7 +10,7 @@ const Layout = ({ children }) => {
   };
 
   return (
-    <div className="flex h-screen bg-secondary-50">
+    <div className="flex h-screen bg-secondary-50 dark:bg-secondary-900">
       {/* Sidebar */}
       <Sidebar
         isCollapsed={isSidebarCollapsed}
@@ -26,7 +26,7 @@ const Layout = ({ children }) => {
         />
 
         {/* Page Content */}
-        <main className="flex-1 overflow-auto">
+        <main className="flex-1 overflow-auto bg-secondary-50 dark:bg-secondary-900">
           {children}
         </main>
       </div>

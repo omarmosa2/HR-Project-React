@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from "react";
-import { CalendarDays, Plus, Edit, Trash2 } from "lucide-react";
+import { CalendarDays, Plus, Edit, Trash2, Search } from "lucide-react";
 import { getAttendances, createAttendance, updateAttendance, deleteAttendance } from "../../lib/api";
 import AttendanceForm from "./AttendanceForm";
 import ExcelExportButton from "../common/ExcelExportButton.jsx";
@@ -89,18 +89,17 @@ export default function AttendanceView() {
   };
 
   return (
-    <div className="min-h-screen bg-secondary-50 p-6">
-      <div className="max-w-7xl mx-auto space-y-6">
-        {/* Page Header */}
-        <div className="bg-white rounded-xl shadow-soft border border-secondary-200/50 p-6">
-          <div className="flex justify-between items-start">
-            <div>
-              <h1 className="text-3xl font-display font-bold text-secondary-900 mb-2">
-                Attendance Management
-              </h1>
-              <p className="text-secondary-600">
-                Monitor and manage daily attendance records for all employees.
-              </p>
+    <div className="p-6 space-y-6">
+      {/* Page Header */}
+      <div className="bg-white dark:bg-secondary-800 rounded-xl shadow-soft border border-secondary-200/50 dark:border-secondary-700/50 p-6">
+        <div className="flex justify-between items-start">
+          <div>
+            <h1 className="text-3xl font-display font-bold text-secondary-900 dark:text-secondary-100 mb-2">
+              Attendance Management
+            </h1>
+            <p className="text-secondary-600 dark:text-secondary-400">
+              Monitor and manage daily attendance records for all employees.
+            </p>
               <div className="flex items-center gap-4 mt-4">
                 <div className="flex items-center gap-2">
                   <div className="w-3 h-3 bg-success-500 rounded-full"></div>
@@ -247,14 +246,12 @@ export default function AttendanceView() {
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="relative">
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-secondary-400 dark:text-secondary-500" />
                     <input
                       type="text"
-                      placeholder="Search attendance..."
-                      className="input w-64 pl-8 pr-4 py-2 text-sm"
+                      placeholder="Search attendance records..."
+                      className="input w-64 pl-10 pr-4 py-2 text-sm"
                     />
-                    <svg className="absolute left-2.5 top-1/2 transform -translate-y-1/2 w-4 h-4 text-secondary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                    </svg>
                   </div>
                 </div>
               </div>
@@ -369,6 +366,6 @@ export default function AttendanceView() {
           </div>
         </div>
       </div>
-    </div>
+
   );
 }

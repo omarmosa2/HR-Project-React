@@ -3,6 +3,7 @@ import {
   Users, Clock, DollarSign, TrendingUp, Calendar, Award,
   Building, UserCheck, AlertCircle, RefreshCw
 } from "lucide-react";
+import { useTheme } from "../../contexts/ThemeContext";
 import { Bar, Doughnut } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -33,6 +34,7 @@ ChartJS.register(
 
 const Dashboard = () => {
   const [lastUpdated, setLastUpdated] = useState(new Date());
+  const { isDarkMode } = useTheme();
 
   const dashboardData = {
     stats: {
@@ -163,7 +165,8 @@ const Dashboard = () => {
           font: {
             size: 12,
             weight: '500'
-          }
+          },
+          color: isDarkMode ? '#e2e8f0' : '#334155'
         }
       },
     },
@@ -171,9 +174,21 @@ const Dashboard = () => {
       y: {
         beginAtZero: true,
         stacked: true,
+        grid: {
+          color: isDarkMode ? '#475569' : '#e2e8f0'
+        },
+        ticks: {
+          color: isDarkMode ? '#cbd5e1' : '#64748b'
+        }
       },
       x: {
         stacked: true,
+        grid: {
+          color: isDarkMode ? '#475569' : '#e2e8f0'
+        },
+        ticks: {
+          color: isDarkMode ? '#cbd5e1' : '#64748b'
+        }
       },
     },
   };
@@ -189,117 +204,115 @@ const Dashboard = () => {
           padding: 15,
           font: {
             size: 11
-          }
+          },
+          color: isDarkMode ? '#e2e8f0' : '#334155'
         }
       },
     }
   };
 
   return (
-    <div className="min-h-screen bg-secondary-50 p-6">
-      <div className="max-w-7xl mx-auto space-y-6">
-        {/* Header */}
-        <div className="bg-gradient-primary rounded-xl p-8 text-white shadow-large animate-fade-in">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-display font-bold mb-2">
-                Welcome to HR Dashboard! 🎉
-              </h1>
-              <p className="text-primary-100 text-lg">
-                Here's your team overview for today, {new Date().toLocaleDateString('en-US', {
-                  weekday: 'long',
-                  month: 'long',
-                  day: 'numeric'
-                })}
-              </p>
-              <div className="flex items-center gap-4 mt-4 text-sm text-primary-100">
-                <Clock className="w-4 h-4" />
-                Last updated: {lastUpdated.toLocaleTimeString()}
-              </div>
+    <div className="p-6 space-y-6 transition-colors duration-200">
+      {/* Header */}
+      <div className="bg-gradient-primary rounded-xl p-8 text-white shadow-large animate-fade-in">
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-3xl font-display font-bold mb-2">
+              Welcome to HR Dashboard! 🎉
+            </h1>
+            <p className="text-primary-100 text-lg">
+              Here's your team overview for today, {new Date().toLocaleDateString('en-US', {
+                weekday: 'long',
+                month: 'long',
+                day: 'numeric'
+              })}
+            </p>
+            <div className="flex items-center gap-4 mt-4 text-sm text-primary-100">
+              <Clock className="w-4 h-4" />
+              Last updated: {lastUpdated.toLocaleTimeString()}
             </div>
-            <div className="hidden md:flex items-center gap-4">
-              <button
-                onClick={refreshData}
-                className="p-3 bg-white/10 rounded-full hover:bg-white/20 transition-colors duration-200 backdrop-blur-sm"
-                title="Refresh data"
-              >
-                <RefreshCw className="w-6 h-6 text-white" />
-              </button>
-              <div className="w-24 h-24 bg-white/10 rounded-full flex items-center justify-center backdrop-blur-sm">
-                <TrendingUp className="w-12 h-12 text-white" />
-              </div>
+          </div>
+          <div className="hidden md:flex items-center gap-4">
+            <button
+              onClick={refreshData}
+              className="p-3 bg-white/10 rounded-full hover:bg-white/20 transition-colors duration-200 backdrop-blur-sm"
+              title="Refresh data"
+            >
+              <RefreshCw className="w-6 h-6 text-white" />
+            </button>
+            <div className="w-24 h-24 bg-white/10 rounded-full flex items-center justify-center backdrop-blur-sm">
+              <TrendingUp className="w-12 h-12 text-white" />
             </div>
           </div>
         </div>
+      </div>
 
-        {/* Stat Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6">
-          <StatCard title="Total Employees" value={dashboardData.stats.totalEmployees} icon={Users} />
-          <StatCard title="Present Today" value={dashboardData.stats.presentToday} icon={UserCheck} />
-          <StatCard title="Monthly Payroll" value={dashboardData.stats.monthlyPayroll} icon={DollarSign} prefix="$" />
-          <StatCard title="Departments" value={dashboardData.stats.totalDepartments} icon={Building} />
-          <StatCard title="Pending Leaves" value={dashboardData.stats.pendingLeaves} icon={Calendar} />
-          <StatCard title="Performance Score" value={dashboardData.stats.performanceScore} icon={Award} suffix="%" />
-        </div>
+      {/* Stat Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6">
+        <StatCard title="Total Employees" value={dashboardData.stats.totalEmployees} icon={Users} />
+        <StatCard title="Present Today" value={dashboardData.stats.presentToday} icon={UserCheck} />
+        <StatCard title="Monthly Payroll" value={dashboardData.stats.monthlyPayroll} icon={DollarSign} prefix="$" />
+        <StatCard title="Departments" value={dashboardData.stats.totalDepartments} icon={Building} />
+        <StatCard title="Pending Leaves" value={dashboardData.stats.pendingLeaves} icon={Calendar} />
+        <StatCard title="Performance Score" value={dashboardData.stats.performanceScore} icon={Award} suffix="%" />
+      </div>
 
-        {/* Charts */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <AnimatedCard className="lg:col-span-2">
-            <h3 className="text-lg font-semibold text-secondary-900 mb-2">Weekly Attendance</h3>
-            <div className="h-80">
-              <Bar data={weeklyAttendanceData} options={chartOptions} />
-            </div>
-          </AnimatedCard>
-
-          <AnimatedCard>
-            <h3 className="text-lg font-semibold text-secondary-900 mb-2">Department Distribution</h3>
-            <div className="h-64">
-              <Doughnut data={departmentData} options={doughnutOptions} />
-            </div>
-          </AnimatedCard>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <AnimatedCard>
-            <h3 className="text-lg font-semibold text-secondary-900 mb-2">Leave Status</h3>
-            <div className="h-64">
-              <Doughnut data={leaveStatusData} options={doughnutOptions} />
-            </div>
-          </AnimatedCard>
-
-          <AnimatedCard>
-            <h3 className="text-lg font-semibold text-secondary-900 mb-2">Quick Actions</h3>
-            <div className="space-y-3">
-              <button className="w-full btn-primary flex items-center"><Users className="w-4 h-4 mr-2" />Add Employee</button>
-              <button className="w-full btn-secondary flex items-center"><Clock className="w-4 h-4 mr-2" />Mark Attendance</button>
-              <button className="w-full btn-secondary flex items-center"><DollarSign className="w-4 h-4 mr-2" />Process Payroll</button>
-              <button className="w-full btn-secondary flex items-center"><Calendar className="w-4 h-4 mr-2" />Manage Leaves</button>
-            </div>
-          </AnimatedCard>
-        </div>
+      {/* Charts */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <AnimatedCard className="lg:col-span-2">
+          <h3 className="text-lg font-semibold text-secondary-900 dark:text-secondary-100 mb-2">Weekly Attendance</h3>
+          <div className="h-80">
+            <Bar data={weeklyAttendanceData} options={chartOptions} />
+          </div>
+        </AnimatedCard>
 
         <AnimatedCard>
-          <h3 className="text-lg font-semibold text-secondary-900 mb-4">Recent Activities</h3>
-          <div className="space-y-4">
-            {dashboardData.recentActivities.map((activity, index) => (
-              <div key={index} className="flex items-start gap-3">
-                <div className={`w-2 h-2 rounded-full mt-2 ${
-                  activity.type === 'success' ? 'bg-green-500' :
-                  activity.type === 'info' ? 'bg-blue-500' :
-                  activity.type === 'warning' ? 'bg-yellow-500' :
-                  activity.type === 'error' ? 'bg-red-500' :
-                  'bg-gray-400'
-                }`} />
-                <div>
-                  <p className="text-sm">{activity.description}</p>
-                  <p className="text-xs text-gray-500">{new Date(activity.created_at).toLocaleString()}</p>
-                  {activity.user && <p className="text-xs text-gray-400">by {activity.user}</p>}
-                </div>
-              </div>
-            ))}
+          <h3 className="text-lg font-semibold text-secondary-900 dark:text-secondary-100 mb-2">Department Distribution</h3>
+          <div className="h-64">
+            <Doughnut data={departmentData} options={doughnutOptions} />
           </div>
         </AnimatedCard>
       </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <AnimatedCard>
+          <h3 className="text-lg font-semibold text-secondary-900 dark:text-secondary-100 mb-2">Leave Status</h3>
+          <div className="h-64">
+            <Doughnut data={leaveStatusData} options={doughnutOptions} />
+          </div>
+        </AnimatedCard>
+
+        <AnimatedCard>
+          <h3 className="text-lg font-semibold text-secondary-900 dark:text-secondary-100 mb-2">Quick Actions</h3>
+          <div className="space-y-3">
+            <button className="w-full btn-primary flex items-center"><Users className="w-4 h-4 mr-2" />Add Employee</button>
+            <button className="w-full btn-secondary flex items-center"><Clock className="w-4 h-4 mr-2" />Mark Attendance</button>
+            <button className="w-full btn-secondary flex items-center"><DollarSign className="w-4 h-4 mr-2" />Process Payroll</button>
+            <button className="w-full btn-secondary flex items-center"><Calendar className="w-4 h-4 mr-2" />Manage Leaves</button>
+          </div>
+        </AnimatedCard>
+      </div>
+      <AnimatedCard>
+        <h3 className="text-lg font-semibold text-secondary-900 dark:text-secondary-100 mb-4">Recent Activities</h3>
+        <div className="space-y-4">
+          {dashboardData.recentActivities.map((activity, index) => (
+            <div key={index} className="flex items-start gap-3">
+              <div className={`w-2 h-2 rounded-full mt-2 ${
+                activity.type === 'success' ? 'bg-success-500' :
+                activity.type === 'info' ? 'bg-primary-500' :
+                activity.type === 'warning' ? 'bg-warning-500' :
+                activity.type === 'error' ? 'bg-danger-500' :
+                'bg-secondary-400'
+              }`} />
+              <div>
+                <p className="text-sm text-secondary-900 dark:text-secondary-100">{activity.description}</p>
+                <p className="text-xs text-secondary-500 dark:text-secondary-400">{new Date(activity.created_at).toLocaleString()}</p>
+                {activity.user && <p className="text-xs text-secondary-400 dark:text-secondary-500">by {activity.user}</p>}
+              </div>
+            </div>
+          ))}
+        </div>
+      </AnimatedCard>
     </div>
   );
 };

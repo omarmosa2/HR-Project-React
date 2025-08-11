@@ -54,7 +54,7 @@ const Login = () => {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-gray-700 text-sm font-bold mb-2">
-              البريد الإلكتروني
+              ..البريد الإلكتروني
             </label>
             <input
               type="email"
